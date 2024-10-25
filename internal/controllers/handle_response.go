@@ -20,7 +20,7 @@ func HandleResponse(c *gin.Context, response interface{}) {
 		c.JSON(http.StatusOK, res)
 	case dtos.ErrorResponse:
 		c.JSON(res.Status, res)
-	case dtos.SucessResponse:
+	case dtos.SuccessResponse:
 		c.JSON(http.StatusOK, res)
 	case dtos.UserResponse:
 		c.JSON(http.StatusOK, res)

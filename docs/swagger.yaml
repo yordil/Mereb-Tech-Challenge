@@ -1,0 +1,191 @@
+definitions:
+  domain.User:
+    properties:
+      age:
+        type: integer
+      hobbies:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  dtos.AllUserResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+      user:
+        items:
+          $ref: '#/definitions/domain.User'
+        type: array
+    type: object
+  dtos.ErrorResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  dtos.SuccessResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  dtos.UserResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+      user:
+        $ref: '#/definitions/domain.User'
+    type: object
+info:
+  contact: {}
+paths:
+  /person:
+    get:
+      consumes:
+      - application/json
+      description: Returns a list of all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.AllUserResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+      summary: Get all users
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Creates a new user in the system
+      parameters:
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/domain.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+      summary: Create a new user
+      tags:
+      - Users
+  /person/{personId}:
+    delete:
+      description: Deletes a user from the system based on ID
+      parameters:
+      - description: User ID
+        in: path
+        name: personId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.SuccessResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+      summary: Delete a user by ID
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a user based on ID
+      parameters:
+      - description: User ID
+        in: path
+        name: personId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.UserResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+      summary: Get user by ID
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Updates the details of an existing user
+      parameters:
+      - description: User ID
+        in: path
+        name: personId
+        required: true
+        type: string
+      - description: Updated user data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/domain.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.ErrorResponse'
+      summary: Update a user by ID
+      tags:
+      - Users
+swagger: "2.0"

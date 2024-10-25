@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,7 +11,11 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/yordil/mereb-tech-challenge/internal/route"
+
+	"github.com/yordil/mereb-tech-challenge/docs"
 )
 
 
@@ -32,10 +37,13 @@ func CORSMiddleware() gin.HandlerFunc {
 }
 
 func main() {
-
+	
 	router := gin.Default()
 	// Add CORS middleware
 	router.Use(CORSMiddleware())
+	
+	fmt.Println(docs.SwaggerInfo.Title)
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	
 	route.SetupAllRoutes(router)
 

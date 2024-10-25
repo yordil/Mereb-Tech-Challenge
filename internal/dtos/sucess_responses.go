@@ -4,7 +4,7 @@ import (
 	"github.com/yordil/mereb-tech-challenge/internal/domain"
 )
 
-type SucessResponse struct {
+type SuccessResponse struct {
 	Message string `json:"message"`
 	Status  int    `json:"status"`
 }

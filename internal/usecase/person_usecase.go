@@ -77,7 +77,7 @@ func (uc *UserUseCase) GetAll() interface {} {
 	return dtos.AllUserResponse{
 		Status: 200,
 		Message: "All users",
-		User: users,
+		Users: users,
 
 	}
 
@@ -172,7 +172,7 @@ func (uc *UserUseCase) DeleteUser(id string) interface{} {
 		}
 	}
 
-	return dtos.SucessResponse{
+	return dtos.SuccessResponse{
 		Status: 200,	
 		Message: "User deleted successfully",
 	}

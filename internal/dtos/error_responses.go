@@ -5,7 +5,7 @@ import ("github.com/yordil/mereb-tech-challenge/internal/domain")
 type AllUserResponse struct {
 	Message string   `json:"message"`
 	Status  int      `json:"status"`
-	User    []domain.User `json:"user"`
+	Users    []domain.User `json:"user"`
 }
 
 
